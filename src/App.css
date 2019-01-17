@@ -26,6 +26,7 @@ html,body{
   display: inline-block;
   height:500px;
   width: 100%;
+  overflow: scroll;
 }
 .images img{
   width:100px;
@@ -37,7 +38,7 @@ html,body{
   cursor: pointer;
 }
 
-.buttonGroupes{
+.term{
   color:white;
   background-color:#85C6FE;
   padding:20px;
