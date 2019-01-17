@@ -1,0 +1,32 @@
+html,body{
+  margin:0;
+  padding:0
+}
+
+.App{
+  border: 2px solid #C7D8E8;
+  background-color: #E7F0EF;
+  margin:auto;
+  padding:10px;
+}
+
+.searchInput, .searchButton{
+  padding: 10px;
+  margin-right:10px;
+}
+.searchInput{
+  width:80%;
+}
+.searchBar{
+  width: 100%;
+}
+
+.images{
+  border:2px dashed #C7D8E8;
+  display: inline-block;
+}
+.images img{
+  width:100px;
+  height:100px;
+  margin-right:10px;
+}
