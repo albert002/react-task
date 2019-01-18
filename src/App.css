@@ -19,6 +19,7 @@ html,body{
 }
 .searchBar{
   width: 100%;
+  margin-bottom: 15px;
 }
 
 .images{
@@ -49,6 +50,8 @@ html,body{
   font-size:25px;
   margin-bottom:15px;
   width:200px;
+  text-align:center;
+  text-transform: uppercase
 }
 
 .groupChoose{
@@ -61,4 +64,9 @@ html,body{
   border:2px dashed #C7D8E8;
   height:300px;
   width: 100%;
+}
+.resImg{
+  height: 100px;
+  width: 100px;
+  margin-right:10px;
 }

@@ -7,7 +7,8 @@ class App extends Component {
 
     this.state = {
       pictures:[],
-      terms:[]
+      terms:[],
+      termImages:[]
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.searchInput = null;
@@ -17,12 +18,19 @@ class App extends Component {
     return `https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`;
   }
 
-  removePic(pic,id){
+  removePic(pic,id,term){
     console.log(`the picture with id ${id} has been deleted`);
     this.state.pictures.filter((value,index,arr) => {
+      //Finding picture with id and removing it
       if(value.key === id){
+        this.state.termImages.push(this.state.pictures[index].props);
         this.state.pictures.splice(index,1)
       }
+      //Check if there are no pictures
+      if(!this.state.pictures.length){
+        alert("All pictures are sorted")
+      }
+      //Updateing state
       this.setState({pictures:this.state.pictures})
     })
   }
@@ -36,20 +44,23 @@ class App extends Component {
       ev.preventDefault();
       ev.dataTransfer.dropEffect = "move"
     }
+
     drop(ev,term){
       ev.preventDefault();
-      //console.log(ev.dataTransfer.getData("text/plain").split(",")[0])
+
       let btnTxt = ev.dataTransfer.getData("text/plain").split(",")[0];
       let id = ev.dataTransfer.getData("text/plain").split(",")[1]
+
         if(term === btnTxt)
           this.state.pictures.forEach((pic) => {
             if(pic.key === id){
-              this.removePic(pic,id);
+              this.removePic(pic,id,pic.props.alt);
             }
           })
         else
           console.log(false)
     }
+
     handleSubmit(e){
       let pictures = [];
       let terms = this.searchInput.value.split(" ");
@@ -81,7 +92,6 @@ class App extends Component {
 
     }
    
-  
   render() {
     return (
       <div className="App">
@@ -102,7 +112,7 @@ class App extends Component {
           </div>
 
           <div className="groupPics">
-
+        
           </div>
       </div>
     );
