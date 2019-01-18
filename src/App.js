@@ -17,18 +17,38 @@ class App extends Component {
     return `https://farm${pic.farm}.staticflickr.com/${pic.server}/${pic.id}_${pic.secret}.jpg`;
   }
 
-    dragStart(ev,term){
+  removePic(pic,id){
+    console.log(`the picture with id ${id} has been deleted`);
+    this.state.pictures.filter((value,index,arr) => {
+      if(value.key === id){
+        this.state.pictures.splice(index,1)
+      }
+      this.setState({pictures:this.state.pictures})
+    })
+  }
+
+    dragStart(ev,term,id){
       ev.dataTransfer.dropEffect = "move";
-      ev.dataTransfer.setData("text/plain",term);
+      ev.dataTransfer.setData("text/plain",[term,id]);
     }
 
     dragOver(ev){
       ev.preventDefault();
       ev.dataTransfer.dropEffect = "move"
     }
-    drop(ev){
+    drop(ev,term){
       ev.preventDefault();
-      console.log(ev.dataTransfer.getData("text/plain"))
+      //console.log(ev.dataTransfer.getData("text/plain").split(",")[0])
+      let btnTxt = ev.dataTransfer.getData("text/plain").split(",")[0];
+      let id = ev.dataTransfer.getData("text/plain").split(",")[1]
+        if(term === btnTxt)
+          this.state.pictures.forEach((pic) => {
+            if(pic.key === id){
+              this.removePic(pic,id);
+            }
+          })
+        else
+          console.log(false)
     }
     handleSubmit(e){
       let pictures = [];
@@ -48,7 +68,7 @@ class App extends Component {
               src={this.makePicPath(pic)}
               alt={term}
               key={pic.id}
-              onDragStart={$ev => this.dragStart($ev,term)}
+              onDragStart={$ev => this.dragStart($ev,term,pic.id)}
               draggable="true"
             />
             )
@@ -77,7 +97,7 @@ class App extends Component {
 
           <div className="groupChoose">
             {this.state.terms.map(term =>
-                <div className="term" key={term} onDragOver={this.dragOver} onDrop={this.drop}>{term}</div>
+                <div className="term" key={term} onDragOver={this.dragOver} onDrop={(e) => this.drop(e,term)}>{term}</div>
             )}
           </div>
 
