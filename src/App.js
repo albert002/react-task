@@ -37,9 +37,10 @@ class App extends Component {
 
       e.preventDefault();
       terms.forEach((term)=>{
-        fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=f86d456db87838e53eea443b31630f4b&tags='+term +'&per_page=5&page=1&format=json&nojsoncallback=1')
+        fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=e23dc203e4bb90a1001fbed2e333ce80&tags='+term +'&per_page=5&page=1&format=json&nojsoncallback=1')
         .then((res)=>res.json())
         .then((resp)=>{
+          console.log(resp)
           resp.photos.photo.forEach(pic=>{
             let data = {};
             pictures.push(
