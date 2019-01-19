@@ -8,7 +8,8 @@ class App extends Component {
     this.state = {
       pictures:[],
       terms:[],
-      termImages:[]
+      termImages:[],
+      resArr:[]
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.searchInput = null;
@@ -33,6 +34,18 @@ class App extends Component {
       //Updateing state
       this.setState({pictures:this.state.pictures})
     })
+  }
+
+  showPics(button){
+    let innerArr = [];
+    this.state.termImages.filter((element,index) => {
+      if(element.alt === button){
+        innerArr.push(<img src={element.src} key={index} className="resImg"/>);
+        this.state.resArr = innerArr
+        this.setState({resArr:innerArr})
+      }
+    })
+    console.log(innerArr)
   }
 
     dragStart(ev,term,id){
@@ -107,12 +120,12 @@ class App extends Component {
 
           <div className="groupChoose">
             {this.state.terms.map(term =>
-                <div className="term" key={term} onDragOver={this.dragOver} onDrop={(e) => this.drop(e,term)}>{term}</div>
+                <div className="term" key={term} onDragOver={this.dragOver} onDrop={(e) => this.drop(e,term)} onClick={this.showPics.bind(this,term)}>{term}</div>
             )}
           </div>
 
           <div className="groupPics">
-        
+            {this.state.resArr}
           </div>
       </div>
     );
